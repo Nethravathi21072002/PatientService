@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,7 @@ import com.flmhospitals.dto.RegisterPatientResponseDto;
 import com.flmhospitals.model.Patient;
 import com.flmhospitals.service.PatientService;
 
-@RestController
+@RestController  
 @RequestMapping("/patients")
 public class PatientController {
 	
@@ -27,6 +28,15 @@ public class PatientController {
 	public PatientController(PatientService patientService) {
 		
 		this.patientService = patientService;
+	}
+	
+	@GetMapping()
+	public ResponseEntity<List<RegisterPatientResponseDto>> getAllPatients(){
+		
+		List<RegisterPatientResponseDto> allPatients = patientService.getAllPatients();
+		
+		return ResponseEntity.status(HttpStatus.OK).body(allPatients);
+		
 	}
 
 	@PostMapping("/register")
@@ -65,5 +75,11 @@ public class PatientController {
 		
 		return patientService.getPatientsByDoctor(listOfPatientIds);
 		
+	}
+	
+	@GetMapping("/getPatientName/{patientId}")
+	String getPatientName(@PathVariable(name="patientId") String patientId) {
+		
+		return patientService.getPatientName(patientId);
 	}
 }

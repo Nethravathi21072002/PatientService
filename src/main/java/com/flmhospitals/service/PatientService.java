@@ -8,6 +8,8 @@ import com.flmhospitals.dto.RegisterPatientResponseDto;
 import com.flmhospitals.model.Patient;
 
 public interface PatientService {
+	
+	List<RegisterPatientResponseDto> getAllPatients();
 
 	RegisterPatientResponseDto regiesterPatient(RegisterPatientRequestDto registerPatientRequestDto);
 	
@@ -18,5 +20,7 @@ public interface PatientService {
 	List<Patient> getPatientsByDoctor(List<String> listOfPatientIds);
 
 	List<String> getPatientsVisitedByDoctor(String staffId, LocalDate startDate, LocalDate endDate);
+
+	String getPatientName(String patientId);
 	
 }
